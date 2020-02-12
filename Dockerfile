@@ -1,9 +1,11 @@
 FROM ansible/ansible-runner:latest
 
-RUN yum install -y git python-dns && yum clean all
-
 # Make Ansible happy with arbitrary UID/GID in OpenShift.
 RUN chmod g=u /etc/passwd /etc/group
+
+# Install required stuff for ansible-ipi-baremetal
+RUN yum install -y git python-dns python2-jmespath && \
+    yum clean all
 
 WORKDIR /runner
 
