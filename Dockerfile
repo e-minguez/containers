@@ -4,7 +4,7 @@ FROM ansible/ansible-runner:latest
 RUN chmod g=u /etc/passwd /etc/group
 
 # Install required stuff for ansible-ipi-baremetal
-RUN yum install -y git python-dns python2-jmespath && \
+RUN yum install -y git python-dns python2-jmespath patch && \
     yum clean all
 
 WORKDIR /runner
