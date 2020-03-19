@@ -1,13 +1,12 @@
 FROM registry.centos.org/centos/centos:latest
 
-ENV APP_ROOT=/opt/app-root \
-		USER_NAME=ansible \
-    USER_UID=10001
+ENV HOME=/ansible
 
-RUN mkdir -p ${APP_ROOT} && \
-		useradd -l -u ${USER_UID} -r -g 0 -d ${APP_ROOT} -s /sbin/nologin -c "${USER_NAME} user" ${USER_NAME} && \
-    chown -R ${USER_UID}:0 ${APP_ROOT} && \
-    chmod -R g=u ${APP_ROOT}
+# In OpenShift, container will run as a random uid number and gid 0. Make sure things
+# are writeable by the root group.
+RUN mkdir -p ${HOME} && \
+    chmod -R g+w ${HOME} && \
+		chgrp -R root ${HOME}
 
 # Make Ansible happy with arbitrary UID/GID in OpenShift.
 RUN chmod g=u /etc/passwd /etc/group
@@ -30,9 +29,7 @@ ENV ANSIBLE_HOST_KEY_CHECKING False
 ENV ANSIBLE_RETRY_FILES_ENABLED False
 ENV ANSIBLE_SSH_PIPELINING True
 
-### Containers should NOT run as root as a good practice
-USER 10001
-WORKDIR ${APP_ROOT}
+WORKDIR ${HOME}
 
 # Sets entry point (same as running ansible-playbook)
 ENTRYPOINT ["ansible-playbook"]
