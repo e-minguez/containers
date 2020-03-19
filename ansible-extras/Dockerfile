@@ -24,9 +24,6 @@ RUN yum install -y epel-release && yum install -y \
 	patch && \
 	yum clean all
 
-RUN chgrp -R 0 /some/directory && \
-    chmod -R g=u /some/directory
-
 # Sets environment variables
 ENV ANSIBLE_GATHERING smart
 ENV ANSIBLE_HOST_KEY_CHECKING False
