@@ -17,6 +17,7 @@ COPY mercurial.repo /etc/yum.repos.d/mercurial.repo
 
 # Install required packages
 RUN microdnf install -y \
+    which \
     git \
     make \
     tar \
