@@ -6,6 +6,7 @@ RUN chmod g=u /etc/passwd /etc/group
 # Install required stuff for ansible-ipi-baremetal
 RUN yum install -y \
 	git \
+	jq \
 	python-dns \
 	python2-dns \
 	python-netaddr \

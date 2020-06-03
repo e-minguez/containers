@@ -15,6 +15,7 @@ RUN chmod g=u /etc/passwd /etc/group
 RUN yum install -y epel-release && yum install -y \
 	ansible \
 	git \
+	jq \
 	python-dns \
 	python2-dns \
 	python-netaddr \
