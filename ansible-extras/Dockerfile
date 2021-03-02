@@ -5,8 +5,8 @@ ENV HOME=/ansible
 # In OpenShift, container will run as a random uid number and gid 0. Make sure things
 # are writeable by the root group.
 RUN mkdir -p ${HOME} && \
-    chmod -R g+w ${HOME} && \
-		chgrp -R root ${HOME}
+    chmod 0777 ${HOME} && \
+    chgrp -R root ${HOME}
 
 # Make Ansible happy with arbitrary UID/GID in OpenShift.
 RUN chmod g=u /etc/passwd /etc/group
