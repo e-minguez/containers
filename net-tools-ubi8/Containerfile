@@ -1,0 +1,3 @@
+FROM registry.access.redhat.com/ubi8:latest
+
+RUN dnf install git nc iputils -y && dnf clean all
